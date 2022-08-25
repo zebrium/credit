@@ -1,0 +1,16 @@
+Zebrium is powered by the following Free and Open Source Projects:
+
+{{- $range := list }}
+{{- range .Artifacts}}
+  {{- $range = append $range .Name}}
+{{- end}}
+{{ $uniqRange := $range | uniq }}
+{{- range $uniqRange }}
+  {{- if not (or (contains "zebrium" .) (contains ".." .)) }}
+    {{- if or (contains "github.com" .) (contains "golang.org" .) }}
+* [{{.}}](https://{{.}})
+    {{- else }}
+* [{{.}}]({{.}})
+    {{- end}}
+  {{- end}}
+{{- end}}
